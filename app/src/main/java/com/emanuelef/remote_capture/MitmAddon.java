@@ -49,8 +49,8 @@ import java.io.IOException;
 import java.lang.ref.WeakReference;
 
 public class MitmAddon {
-    public static final long PACKAGE_VERSION_CODE = 26;
-    public static final String PACKAGE_VERSION_NAME = "2.4";
+    public static final long PACKAGE_VERSION_CODE = 27;
+    public static final String PACKAGE_VERSION_NAME = "2.5";
     public static final String REPOSITORY = "https://github.com/emanuele-f/PCAPdroid-mitm";
     private static final String TAG = "MitmAddon";
     private final Context mContext;
@@ -333,6 +333,29 @@ public class MitmAddon {
         Utils.safeClose(pair[0]);
 
         return pair[1];
+    }
+
+    // Provide the XML rules used to rewrite the HTTP responses. Must be called
+    // before startProxy(), as the rules are read when mitmproxy starts.
+    // An addon older than 2.5 ignores this message and simply does not rewrite.
+    public void setRewriteRules(String rules_xml) {
+        if(mService == null) {
+            Log.e(TAG, "Not connected");
+            return;
+        }
+
+        Log.i(TAG, "Send rewrite rules message");
+        Message msg = Message.obtain(null, MitmAPI.MSG_SET_REWRITE_RULES);
+
+        Bundle bundle = new Bundle();
+        bundle.putString(MitmAPI.REWRITE_RULES_RESULT, rules_xml);
+        msg.setData(bundle);
+
+        try {
+            mService.send(msg);
+        } catch (RemoteException | NullPointerException e) {
+            e.printStackTrace();
+        }
     }
 
     public boolean stopProxy() {

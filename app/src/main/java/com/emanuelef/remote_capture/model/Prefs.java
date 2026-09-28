@@ -110,6 +110,7 @@ public class Prefs {
     public static final String PREF_PAYLOAD_NOTICE_ACK = "payload_notice";
     public static final String PREF_REMOTE_COLLECTOR_ACK = "remote_collector_notice";
     public static final String PREF_MITMPROXY_OPTS = "mitmproxy_opts";
+    public static final String PREF_REWRITE_RULES = "rewrite_rules";
     public static final String PREF_DNS_SERVER_V4 = "dns_v4";
     public static final String PREF_DNS_SERVER_V6 = "dns_v6";
     public static final String PREF_USE_SYSTEM_DNS = "system_dns";
@@ -270,6 +271,12 @@ public class Prefs {
     public static boolean isFirewallWhitelistMode(SharedPreferences p)     { return(p.getBoolean(PREF_FIREWALL_WHITELIST_MODE, false)); }
     public static boolean isFirewallWhitelistInitialized(SharedPreferences p) { return(p.getInt(PREF_FIREWALL_WHITELIST_INIT_VER, 0) == FIREWALL_WHITELIST_INIT_VER); }
     public static String getMitmproxyOpts(SharedPreferences p)    { return(p.getString(PREF_MITMPROXY_OPTS, "")); }
+    public static String getRewriteRulesXml(SharedPreferences p)  { return(p.getString(PREF_REWRITE_RULES, "")); }
+    public static void setRewriteRulesXml(SharedPreferences p, String xml) { p.edit().putString(PREF_REWRITE_RULES, xml).apply(); }
+    public static int getNumRewriteRules(SharedPreferences p)     { return(p.getInt(PREF_REWRITE_RULES + "_count", 0)); }
+    public static void setNumRewriteRules(SharedPreferences p, int num) { p.edit().putInt(PREF_REWRITE_RULES + "_count", num).apply(); }
+    public static String getRewriteRulesName(SharedPreferences p) { return(p.getString(PREF_REWRITE_RULES + "_name", "")); }
+    public static void setRewriteRulesName(SharedPreferences p, String name) { p.edit().putString(PREF_REWRITE_RULES + "_name", name).apply(); }
     public static boolean isPortMappingEnabled(SharedPreferences p) { return(p.getBoolean(PREF_PORT_MAPPING_ENABLED, true)); }
     public static boolean useSystemDns(SharedPreferences p)     { return(p.getBoolean(PREF_USE_SYSTEM_DNS, true)); }
     public static String getDnsServerV4(SharedPreferences p)    { return(p.getString(PREF_DNS_SERVER_V4, "1.1.1.1")); }

@@ -29,6 +29,7 @@ import android.util.SparseArray;
 import androidx.lifecycle.LifecycleOwner;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.Observer;
+import androidx.preference.PreferenceManager;
 
 import com.emanuelef.remote_capture.interfaces.ConnectionsListener;
 import com.emanuelef.remote_capture.interfaces.MitmListener;
@@ -505,6 +506,8 @@ public class MitmReceiver implements Runnable, ConnectionsListener, MitmListener
         }
 
         // Certificate installation verified, start the proxy
+        // NOTE: send the rules first, as they are read when mitmproxy starts
+        mAddon.setRewriteRules(Prefs.getRewriteRulesXml(PreferenceManager.getDefaultSharedPreferences(mContext)));
         mSocketFd = mAddon.startProxy(mConfig);
         if(mSocketFd == null) {
             mAddon.disconnect();
