@@ -58,6 +58,7 @@ import com.emanuelef.remote_capture.VpnReconnectService;
 import com.emanuelef.remote_capture.activities.BaseActivity;
 import com.emanuelef.remote_capture.activities.MainActivity;
 import com.emanuelef.remote_capture.activities.MitmSetupWizard;
+import com.emanuelef.remote_capture.activities.RewriteRulesActivity;
 import com.emanuelef.remote_capture.fragments.prefs.DnsSettings;
 import com.emanuelef.remote_capture.fragments.prefs.GeoipSettings;
 import com.emanuelef.remote_capture.fragments.prefs.Socks5Settings;
@@ -194,6 +195,7 @@ public class SettingsActivity extends BaseActivity implements PreferenceFragment
         private Preference mDnsSettings;
         private Preference mPortMapping;
         private Preference mMitmWizard;
+        private Preference mRewriteRules;
         private SwitchPreference mMalwareDetectionEnabled;
         private SwitchPreference mPcapngEnabled;
         private SwitchPreference mDumpExtensions;
@@ -433,6 +435,14 @@ public class SettingsActivity extends BaseActivity implements PreferenceFragment
             mMitmWizard.setOnPreferenceClickListener(preference -> {
                 mHasStartedMitmWizard = true;
                 Intent intent = new Intent(requireContext(), MitmSetupWizard.class);
+                startActivity(intent);
+                return true;
+            });
+
+            mRewriteRules = requirePreference("rewrite_rules");
+            mRewriteRules.setVisible(mTlsDecryption.isChecked());
+            mRewriteRules.setOnPreferenceClickListener(preference -> {
+                Intent intent = new Intent(requireContext(), RewriteRulesActivity.class);
                 startActivity(intent);
                 return true;
             });

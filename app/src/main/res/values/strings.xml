@@ -473,6 +473,17 @@
     <string name="mitmproxy_opts">Additional mitmproxy options</string>
     <string name="mitmproxy_opts_description">Provide additional options for mitmproxy</string>
     <string name="mitm_addon_error">Error while starting the mitm addon. Check the log for details</string>
+    <string name="rewrite_rules">HTTP response rewrite rules</string>
+    <string name="rewrite_rules_summary">Rewrite the status, the headers and the body of the HTTP responses matching a URL pattern</string>
+    <string name="rewrite_rules_description">Import an XML file with the rules used to rewrite the HTTP(S) responses during the TLS decryption. For each matching URL, you can set a new status code, some headers and a new body:\n\n<rules>\n  <rule>\n    <pattern>https://api.exemplo.com/v1/usuario</pattern>\n    <rewrite>\n      <status_code>200</status_code>\n      <headers><header name="X-Custom-Header" value="Teste"/></headers>\n      <body>{\"status\": \"sucesso\"}</body>\n    </rewrite>\n  </rule>\n</rules></string>
+    <string name="rewrite_rules_import">Import XML</string>
+    <string name="rewrite_rules_remove">Remove the rules</string>
+    <string name="rewrite_rules_restart_hint">The rules are read when mitmproxy starts: stop and start the capture to apply them.</string>
+    <string name="rewrite_rules_none">No rewrite rules imported</string>
+    <string name="rewrite_rules_loaded">Imported from %1$s (%2$d bytes)</string>
+    <string name="rewrite_rules_imported">%1$d rules imported from %2$s</string>
+    <string name="rewrite_rules_import_failed">Could not read the XML file</string>
+    <string name="rewrite_rules_removed">The rewrite rules were removed</string>
     <string name="whitelist_mode">Whitelist mode</string>
     <string name="firewall_whitelist_notice">In this mode all the connections will be blocked, unless manually whitelisted. You may miss push notifications without a proper whitelist</string>
     <string name="firewall_whitelist_help">These rules specify which connections to allow. Blocklist rules have priority over whitelist rules</string>

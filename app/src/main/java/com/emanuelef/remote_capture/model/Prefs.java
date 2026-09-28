@@ -273,8 +273,6 @@ public class Prefs {
     public static String getMitmproxyOpts(SharedPreferences p)    { return(p.getString(PREF_MITMPROXY_OPTS, "")); }
     public static String getRewriteRulesXml(SharedPreferences p)  { return(p.getString(PREF_REWRITE_RULES, "")); }
     public static void setRewriteRulesXml(SharedPreferences p, String xml) { p.edit().putString(PREF_REWRITE_RULES, xml).apply(); }
-    public static int getNumRewriteRules(SharedPreferences p)     { return(p.getInt(PREF_REWRITE_RULES + "_count", 0)); }
-    public static void setNumRewriteRules(SharedPreferences p, int num) { p.edit().putInt(PREF_REWRITE_RULES + "_count", num).apply(); }
     public static String getRewriteRulesName(SharedPreferences p) { return(p.getString(PREF_REWRITE_RULES + "_name", "")); }
     public static void setRewriteRulesName(SharedPreferences p, String name) { p.edit().putString(PREF_REWRITE_RULES + "_name", name).apply(); }
     public static boolean isPortMappingEnabled(SharedPreferences p) { return(p.getBoolean(PREF_PORT_MAPPING_ENABLED, true)); }

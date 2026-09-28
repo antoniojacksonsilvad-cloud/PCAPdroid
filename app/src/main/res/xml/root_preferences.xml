@@ -116,6 +116,12 @@
             app:summary="@string/socks5_summary"
             app:iconSpaceReserved="false"
             app:fragment="com.emanuelef.remote_capture.fragments.prefs.Socks5Settings" />
+
+        <Preference
+            android:key="rewrite_rules"
+            app:title="@string/rewrite_rules"
+            app:summary="@string/rewrite_rules_summary"
+            app:iconSpaceReserved="false" />
     </PreferenceCategory>
 
     <PreferenceCategory app:title="@string/capture_prefs" app:iconSpaceReserved="false" >
