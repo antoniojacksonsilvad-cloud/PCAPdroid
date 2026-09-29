@@ -24,7 +24,21 @@ jobs:
       - name: Set up Gradle
         uses: gradle/actions/setup-gradle@v4
 
+      - name: Restore the debug keystore
+        env:
+          KEYSTORE_BASE64: ${{ secrets.KEYSTORE_BASE64 }}
+        run: |
+          # the secrets are masked by GitHub, do not print them
+          umask 077
+          echo "$KEYSTORE_BASE64" | base64 --decode > "$RUNNER_TEMP/debug.keystore"
+          test -s "$RUNNER_TEMP/debug.keystore" || { echo "the keystore secret is empty or invalid"; exit 1; }
+
       - name: Assemble debug APKs
+        env:
+          KEYSTORE_FILE: ${{ runner.temp }}/debug.keystore
+          KEYSTORE_PASSWORD: ${{ secrets.KEYSTORE_PASSWORD }}
+          KEY_ALIAS: ${{ secrets.KEY_ALIAS }}
+          KEY_PASSWORD: ${{ secrets.KEY_PASSWORD }}
         run: ./gradlew assembleDebug --stacktrace
 
       - name: Upload debug APKs

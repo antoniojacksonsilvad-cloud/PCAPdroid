@@ -37,6 +37,19 @@ android {
             enableV2Signing true
             enableV3Signing true
         }
+
+        // The CI provides a fixed debug keystore through the KEYSTORE_FILE
+        // property, so that every build is signed with the same key and can
+        // be installed over the previous one. When the property is not set
+        // (local builds), the default debug key of the machine is used.
+        if (project.hasProperty("KEYSTORE_FILE")) {
+            debug {
+                storeFile file( project.property("KEYSTORE_FILE") )
+                storePassword project.property("KEYSTORE_PASSWORD")
+                keyAlias project.property("KEY_ALIAS")
+                keyPassword project.property("KEY_PASSWORD")
+            }
+        }
     }
 
     buildTypes {
