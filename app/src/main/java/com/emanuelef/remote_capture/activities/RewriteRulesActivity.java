@@ -207,11 +207,20 @@ public class RewriteRulesActivity extends BaseActivity {
             View view = inflater.inflate(R.layout.rewrite_rule_item, container, false);
 
             TextView pattern = view.findViewById(R.id.rule_pattern);
+            TextView type = view.findViewById(R.id.rule_type);
             TextView status = view.findViewById(R.id.rule_status);
             TextView headers = view.findViewById(R.id.rule_headers);
             TextView body = view.findViewById(R.id.rule_body);
 
-            pattern.setText(rule.pattern);
+            // a Charles rule constrains the host, not the URL: an empty
+            // location means the rule applies to any host
+            pattern.setText(rule.pattern.isEmpty()
+                    ? getString(R.string.rewrite_any_host) : rule.pattern);
+
+            if (rule.charles && (rule.type != null)) {
+                type.setVisibility(View.VISIBLE);
+                type.setText(getString(R.string.rewrite_type, rule.type, scopeLabel(rule.scope)));
+            }
 
             if (rule.status > 0) {
                 status.setVisibility(View.VISIBLE);
@@ -223,7 +232,11 @@ public class RewriteRulesActivity extends BaseActivity {
                 for (String[] header : rule.headers) {
                     if (sb.length() > 0)
                         sb.append('\n');
-                    sb.append(getString(R.string.rewrite_header, header[0], header[1]));
+                    if (header[1].isEmpty())
+                        // a Charles rule carries the name of the header it matches
+                        sb.append(getString(R.string.rewrite_header_match, header[0]));
+                    else
+                        sb.append(getString(R.string.rewrite_header, header[0], header[1]));
                 }
 
                 headers.setVisibility(View.VISIBLE);
@@ -237,6 +250,14 @@ public class RewriteRulesActivity extends BaseActivity {
                         ? getString(R.string.rewrite_body_empty) : text));
             }
         }
+    }
+
+    private String scopeLabel(String scope) {
+        if ("request".equals(scope))
+            return getString(R.string.rewrite_scope_request);
+        if ("both".equals(scope))
+            return getString(R.string.rewrite_scope_both);
+        return getString(R.string.rewrite_scope_response);
     }
 
     private void refreshMasterHint() {

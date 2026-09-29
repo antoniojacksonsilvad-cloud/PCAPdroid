@@ -49,7 +49,7 @@ import java.io.IOException;
 import java.lang.ref.WeakReference;
 
 public class MitmAddon {
-    public static final long PACKAGE_VERSION_CODE = 28;
+    public static final long PACKAGE_VERSION_CODE = 29;
     public static final String PACKAGE_VERSION_NAME = "2.6";
     public static final String REPOSITORY = "https://github.com/emanuele-f/PCAPdroid-mitm";
     private static final String TAG = "MitmAddon";

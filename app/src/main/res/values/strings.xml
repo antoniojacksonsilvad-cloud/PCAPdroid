@@ -494,8 +494,14 @@
     <string name="rewrite_capture_stop">Parar a captura</string>
     <string name="rewrite_status">status: %1$d</string>
     <string name="rewrite_header">%1$s: %2$s</string>
+    <string name="rewrite_header_match">%1$s (header)</string>
     <string name="rewrite_body">body: %1$s</string>
     <string name="rewrite_body_empty">(vazio)</string>
+    <string name="rewrite_type">%1$s · %2$s</string>
+    <string name="rewrite_scope_request">requisição</string>
+    <string name="rewrite_scope_response">resposta</string>
+    <string name="rewrite_scope_both">requisição e resposta</string>
+    <string name="rewrite_any_host">qualquer host</string>
     <string name="rewrite_imported">%1$s importado: %2$d regras</string>
     <string name="rewrite_import_failed">Não foi possível ler o arquivo XML</string>
     <string name="rewrite_too_big">Arquivo muito grande (máx. %1$d KB)</string>
