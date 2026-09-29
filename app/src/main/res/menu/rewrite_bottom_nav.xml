@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+    Abas de navegacao da tela de regras. Cada aba leva a uma tela que existe de
+    verdade no app: nao ha aba sem destino.
+-->
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/nav_traffic"
+        android:icon="@drawable/ic_nav_traffic"
+        android:title="@string/rewrite_nav_traffic" />
+    <item
+        android:id="@+id/nav_rewriter"
+        android:icon="@drawable/ic_nav_rewriter"
+        android:title="@string/rewrite_rules" />
+    <item
+        android:id="@+id/nav_certificate"
+        android:icon="@drawable/ic_nav_certificate"
+        android:title="@string/rewrite_nav_certificate" />
+    <item
+        android:id="@+id/nav_about"
+        android:icon="@drawable/ic_nav_about"
+        android:title="@string/rewrite_nav_about" />
+</menu>

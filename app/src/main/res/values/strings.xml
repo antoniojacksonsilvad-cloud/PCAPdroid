@@ -502,6 +502,9 @@
     <string name="rewrite_scope_response">resposta</string>
     <string name="rewrite_scope_both">requisição e resposta</string>
     <string name="rewrite_any_host">qualquer host</string>
+    <string name="rewrite_nav_traffic">Tráfego</string>
+    <string name="rewrite_nav_certificate">Certificado</string>
+    <string name="rewrite_nav_about">Sobre</string>
     <string name="rewrite_imported">%1$s importado: %2$d regras</string>
     <string name="rewrite_import_failed">Não foi possível ler o arquivo XML</string>
     <string name="rewrite_too_big">Arquivo muito grande (máx. %1$d KB)</string>

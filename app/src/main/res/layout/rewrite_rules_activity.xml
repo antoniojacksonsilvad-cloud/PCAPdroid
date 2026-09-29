@@ -28,7 +28,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:clipToPadding="false"
-        android:paddingBottom="140dp"
+        android:paddingBottom="180dp"
         app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
         <LinearLayout
@@ -202,4 +202,17 @@
             android:src="@drawable/ic_play_arrow"
             app:tint="@color/rewriteBg" />
     </LinearLayout>
+
+    <!-- Abas de navegacao -->
+    <com.google.android.material.bottomnavigation.BottomNavigationView
+        android:id="@+id/rewrite_bottom_nav"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom"
+        android:background="@color/rewriteSurface"
+        app:elevation="0dp"
+        app:itemIconTint="@color/rewrite_nav_item"
+        app:itemTextColor="@color/rewrite_nav_item"
+        app:labelVisibilityMode="labeled"
+        app:menu="@menu/rewrite_bottom_nav" />
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

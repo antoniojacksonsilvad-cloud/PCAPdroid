@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+    <!-- aba selecionada -->
+    <item
+        android:color="@color/rewriteCyan"
+        android:state_checked="true" />
+    <!-- aba normal -->
+    <item android:color="@color/rewriteTextDim" />
+</selector>

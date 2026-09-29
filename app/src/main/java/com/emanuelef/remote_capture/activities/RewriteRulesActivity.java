@@ -43,6 +43,7 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.widget.SwitchCompat;
 import androidx.core.content.ContextCompat;
+import androidx.core.widget.NestedScrollView;
 import androidx.preference.PreferenceManager;
 
 import com.emanuelef.remote_capture.CaptureHelper;
@@ -57,6 +58,7 @@ import com.emanuelef.remote_capture.model.CaptureSettings;
 import com.emanuelef.remote_capture.model.Prefs;
 import com.emanuelef.remote_capture.model.RewriteFiles;
 import com.emanuelef.remote_capture.model.RewriteXmlParser;
+import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
@@ -108,6 +110,7 @@ public class RewriteRulesActivity extends BaseActivity {
         setSupportActionBar(findViewById(R.id.toolbar));
         setTitle(R.string.rewrite_rules);
         displayBackAction();
+        setupBottomNav();
 
         mPrefs = PreferenceManager.getDefaultSharedPreferences(this);
         mFiles = new RewriteFiles(mPrefs);
@@ -258,6 +261,44 @@ public class RewriteRulesActivity extends BaseActivity {
         if ("both".equals(scope))
             return getString(R.string.rewrite_scope_both);
         return getString(R.string.rewrite_scope_response);
+    }
+
+    // ----- bottom navigation
+
+    /* Every tab leads to a screen which really exists in the app: no tab is a
+     * dead end. The Rewriter tab is the current screen, so selecting it again
+     * only scrolls back to the top. */
+    private void setupBottomNav() {
+        BottomNavigationView nav = findViewById(R.id.rewrite_bottom_nav);
+
+        // the current tab must be marked as selected
+        nav.setSelectedItemId(R.id.nav_rewriter);
+
+        nav.setOnItemSelectedListener(item -> {
+            int id = item.getItemId();
+
+            if (id == R.id.nav_rewriter) {
+                NestedScrollView scroll = findViewById(R.id.rewrite_scroll);
+                if (scroll != null)
+                    scroll.smoothScrollTo(0, 0);
+                return true;
+            }
+
+            Class<?> target = null;
+            if (id == R.id.nav_traffic)
+                target = MainActivity.class;
+            else if (id == R.id.nav_certificate)
+                target = MitmSetupWizard.class;
+            else if (id == R.id.nav_about)
+                target = AboutActivity.class;
+
+            if (target == null)
+                return false;
+
+            Utils.startActivity(this, new Intent(this, target));
+            finish();
+            return true;
+        });
     }
 
     private void refreshMasterHint() {
