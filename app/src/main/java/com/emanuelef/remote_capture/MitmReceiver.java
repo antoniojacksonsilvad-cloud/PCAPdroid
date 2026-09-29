@@ -38,6 +38,7 @@ import com.emanuelef.remote_capture.model.ConnectionDescriptor;
 import com.emanuelef.remote_capture.model.PayloadChunk;
 import com.emanuelef.remote_capture.model.PayloadChunk.ChunkType;
 import com.emanuelef.remote_capture.model.Prefs;
+import com.emanuelef.remote_capture.model.RewriteFiles;
 import com.pcapdroid.mitm.MitmAPI;
 
 import org.jetbrains.annotations.Nullable;
@@ -507,7 +508,7 @@ public class MitmReceiver implements Runnable, ConnectionsListener, MitmListener
 
         // Certificate installation verified, start the proxy
         // NOTE: send the rules first, as they are read when mitmproxy starts
-        mAddon.setRewriteRules(Prefs.getRewriteRulesXml(PreferenceManager.getDefaultSharedPreferences(mContext)));
+        mAddon.setRewriteRules(new RewriteFiles(PreferenceManager.getDefaultSharedPreferences(mContext)).getEnabledXmls());
         mSocketFd = mAddon.startProxy(mConfig);
         if(mSocketFd == null) {
             mAddon.disconnect();

@@ -28,4 +28,17 @@
     <color name="cardBorder">#e8e8e8</color>
     <color name="appBadgeBg">#616161</color>
     <color name="appBadgeText">#FFFFFF</color>
+
+    <!-- Rewrite rules screen, dark/cyan theme. Used on this screen only, so
+         that it keeps its own look regardless of the system theme. -->
+    <color name="rewriteBg">#0A1014</color>
+    <color name="rewriteSurface">#111A21</color>
+    <color name="rewriteSurfaceAlt">#16232B</color>
+    <color name="rewriteCyan">#00E5FF</color>
+    <color name="rewriteCyanDim">#0097A7</color>
+    <color name="rewriteText">#E3F2FD</color>
+    <color name="rewriteTextDim">#8FA6B2</color>
+    <color name="rewriteBorder">#1E3A44</color>
+    <color name="rewriteDanger">#FF5252</color>
+    <color name="rewriteOk">#00E676</color>
 </resources>
