@@ -80,8 +80,8 @@ public class PrefsSchema {
         bool(Prefs.PREF_TLS_DECRYPTION_KEY);
         bool(Prefs.PREF_FULL_PAYLOAD);
         string(Prefs.PREF_MITMPROXY_OPTS);
-        string(Prefs.PREF_REWRITE_RULES);
-        string(Prefs.PREF_REWRITE_RULES + "_name");
+        json(Prefs.PREF_REWRITE_FILES);
+        bool(Prefs.PREF_REWRITE_ENABLED);
         string(Prefs.PREF_BLOCK_QUIC, oneOf(
                 Prefs.BLOCK_QUIC_MODE_NEVER,
                 Prefs.BLOCK_QUIC_MODE_ALWAYS,
