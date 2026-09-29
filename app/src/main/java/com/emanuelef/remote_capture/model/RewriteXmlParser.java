@@ -70,13 +70,15 @@ public class RewriteXmlParser {
             return res;
 
         XmlPullParser parser = Xml.newPullParser();
-        parser.setFeature(XmlPullParser.FEATURE_PROCESS_NAMESPACES, false);
 
         Rule current = null;
         int rule_depth = -1;
         boolean in_rewrite = false;
+        boolean in_headers = false;
 
         try {
+            // NOTE: setFeature throws a checked exception, it must be inside the try
+            parser.setFeature(XmlPullParser.FEATURE_PROCESS_NAMESPACES, false);
             parser.setInput(new StringReader(xml));
 
             int event = parser.getEventType();
@@ -90,7 +92,9 @@ public class RewriteXmlParser {
                         rule_depth = depth;
                     } else if (name.equals("rewrite")) {
                         in_rewrite = (current != null);
-                    } else if (current != null && isLeafOfRule(depth, rule_depth, in_rewrite)) {
+                    } else if (name.equals("headers")) {
+                        in_headers = (current != null);
+                    } else if (current != null && isLeafOfRule(depth, rule_depth, in_rewrite, in_headers)) {
                         // the rewrite element is optional: its children can be
                         // placed directly inside the rule
                         switch (name) {
@@ -114,6 +118,8 @@ public class RewriteXmlParser {
 
                     if (name.equals("rewrite"))
                         in_rewrite = false;
+                    else if (name.equals("headers"))
+                        in_headers = false;
                     else if (name.equals("rule") && (current != null)) {
                         res.rules.add(current);
                         current = null;
@@ -137,13 +143,25 @@ public class RewriteXmlParser {
     }
 
     /* True when the element is one of the values a rule can be built from:
-     * either a direct child of <rule>, or a child of the optional <rewrite>. */
-    private static boolean isLeafOfRule(int depth, int rule_depth, boolean in_rewrite) {
+     * either a direct child of <rule>, or a child of the optional <rewrite>.
+     * The <header> elements are nested one level deeper, inside <headers>. */
+    private static boolean isLeafOfRule(int depth, int rule_depth, boolean in_rewrite, boolean in_headers) {
         if (rule_depth < 0)
             return false;
 
-        return (depth == rule_depth + 1)
-                || (in_rewrite && (depth == rule_depth + 2));
+        // a direct child of <rule>
+        if (depth == rule_depth + 1)
+            return true;
+
+        if (!in_rewrite)
+            return false;
+
+        // a child of <rewrite>: status_code, headers, body
+        if (depth == rule_depth + 2)
+            return true;
+
+        // a <header> inside <headers>
+        return in_headers && (depth == rule_depth + 3);
     }
 
     private static void addHeader(Rule rule, XmlPullParser parser) {

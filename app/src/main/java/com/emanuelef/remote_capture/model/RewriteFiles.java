@@ -111,6 +111,10 @@ public class RewriteFiles {
         return mEntries.size();
     }
 
+    public boolean isEmpty() {
+        return mEntries.isEmpty();
+    }
+
     public int getEnabledCount() {
         if (!isEnabled())
             return 0;
